@@ -8,3 +8,7 @@
 # IDEA files
 *.idea
 *.iml
+
+# log files
+*.log
+*.txt
