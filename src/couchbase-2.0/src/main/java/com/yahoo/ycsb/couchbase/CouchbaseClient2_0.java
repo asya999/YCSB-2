@@ -1,6 +1,9 @@
 package com.yahoo.ycsb.couchbase;
 
 import com.couchbase.client.CouchbaseClient;
+import com.couchbase.client.protocol.views.View;
+import com.couchbase.client.protocol.views.Query;
+import com.couchbase.client.protocol.views.ViewResponse;
 import com.couchbase.client.CouchbaseConnectionFactory;
 import com.couchbase.client.CouchbaseConnectionFactoryBuilder;
 import com.yahoo.ycsb.ByteIterator;
@@ -14,9 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Collection;
 
 @SuppressWarnings({"NullableProblems"})
 public class CouchbaseClient2_0 extends MemcachedCompatibleClient implements RangeScanOperation {
+
+    protected CouchbaseClient client;
 
     private CouchbaseConfig couchbaseConfig;
 
@@ -55,4 +61,22 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient implements Ran
     public int scan(String table, String startKey, String endKey, int limit, Set<String> fields, List<Map<String, ByteIterator>> result) {
         throw new UnsupportedOperationException("Scan not implemented");
     }
+
+    @Override
+    public int query(String table, String key, String docName, String viewName, int limit) {
+        key = createQualifiedKey(table, key);
+
+        View view = client.getView(docName, viewName);
+        Query query = new Query();
+        query.setKey(key);
+        query.setLimit(limit);
+        ViewResponse response = client.query(view, query);
+
+        Collection errors = response.getErrors();
+        if (errors.isEmpty() == true) {
+            return 0;
+        } else {
+            return 1;
+        }
+    };
 }
