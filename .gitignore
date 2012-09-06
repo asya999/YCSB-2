@@ -12,3 +12,5 @@
 # log files
 *.log
 *.txt
+
+src/*/target
