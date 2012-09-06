@@ -290,4 +290,8 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
             }
         }
     }
+
+    public int query(String table, List<Map<String, ByteIterator>> result) {
+        throw new UnsupportedOperationException("Query not implemented");
+    };
 }

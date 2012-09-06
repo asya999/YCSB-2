@@ -267,6 +267,10 @@ public class RiakClient extends DB implements RangeScanOperation, RiakClientProp
         return OK;
     }
 
+    public int query(String table, List<Map<String, ByteIterator>> result) {
+        throw new UnsupportedOperationException("Query not implemented");
+    };
+
     @Override
     public void cleanup() throws DBException {
         client.shutdown();

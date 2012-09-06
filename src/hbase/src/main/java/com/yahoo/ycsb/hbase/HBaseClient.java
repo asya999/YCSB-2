@@ -295,4 +295,8 @@ public class HBaseClient extends DB implements HBaseClientProperties {
         }
         return OK;
     }
+
+    public int query(String table, List<Map<String, ByteIterator>> result) {
+        throw new UnsupportedOperationException("Query not implemented");
+    };
 }

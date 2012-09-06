@@ -375,6 +375,10 @@ public class CassandraClient extends DB implements CassandraClientProperties {
         return ERROR;
     }
 
+    public int query(String table, List<Map<String, ByteIterator>> result) {
+        throw new UnsupportedOperationException("Query not implemented");
+    };
+
     public static void main(String[] args) {
         CassandraClient client = new CassandraClient();
         Properties props = new Properties();

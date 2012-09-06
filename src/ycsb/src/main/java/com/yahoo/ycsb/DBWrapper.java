@@ -160,4 +160,13 @@ public class DBWrapper extends DB {
         measurements.reportReturnCode("DELETE", res);
         return res;
     }
+
+    public int query(String table, List<Map<String, ByteIterator>> result) {
+        long st = System.nanoTime();
+        int res = db.query(table, result);
+        long en = System.nanoTime();
+        measurements.measure("QUERY", (int) ((en - st) / 1000));
+        measurements.reportReturnCode("QUERY", res);
+        return res;
+    }
 }

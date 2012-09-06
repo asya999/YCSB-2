@@ -122,6 +122,10 @@ public abstract class MemcachedCompatibleClient extends DB {
         }
     }
 
+    public int query(String table, List<Map<String, ByteIterator>> result) {
+        throw new UnsupportedOperationException("Query not implemented");
+    };
+
     protected int getReturnCode(OperationFuture<Boolean> future) {
         if (checkOperationStatus) {
             return future.getStatus().isSuccess() ? OK : ERROR;

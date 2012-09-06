@@ -129,6 +129,14 @@ public abstract class DB {
      */
     public abstract int delete(String table, String key);
 
+    /**
+     * Query on secondary indices
+     *
+     * @param table The name of the table
+     * @return Zero on success, a non-zero error code on error.
+     */
+    public abstract int query(String table, List<Map<String, ByteIterator>> result);
+
     public int deleteAll(String table, Set<String> keys) {
         int code = OK;
         for (String key : keys) {
