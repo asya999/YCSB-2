@@ -46,6 +46,7 @@ import static com.yahoo.ycsb.generator.ExponentialGenerator.EXPONENTIAL_PERCENTI
  * <LI><b>insertproportion</b>: what proportion of operations should be inserts (default: 0)
  * <LI><b>scanproportion</b>: what proportion of operations should be scans (default: 0)
  * <LI><b>readmodifywriteproportion</b>: what proportion of operations should be read a record, modify it, write it back (default: 0)
+ * * <LI><b>queryproportion</b>: what proportion of operations should be query (default: 0)
  * <LI><b>requestdistribution</b>: what distribution should be used to select the records to operate on - uniform, zipfian, hotspot, or latest (default: uniform)
  * <LI><b>maxscanlength</b>: for scans, what is the maximum number of records to scan (default: 1000)
  * <LI><b>scanlengthdistribution</b>: for scans, what distribution should be used to choose the number of records to scan, for each scan, between 1 and maxscanlength (default: uniform)
@@ -179,6 +180,16 @@ public class CoreWorkload extends Workload {
     public static final double READMODIFYWRITE_PROPORTION_PROPERTY_DEFAULT = 0.0;
 
     /**
+     * The name of the property for the proportion of transactions that are query.
+     */
+    public static final String QUERY_PROPORTION_PROPERTY = "queryproportion";
+
+    /**
+     * The default proportion of transactions that are query.
+     */
+    public static final double QUERY_PROPORTION_PROPERTY_DEFAULT = 0.0;
+
+    /**
      * The name of the property for the the distribution of requests across the keyspace. Options are "uniform", "zipfian" and "latest"
      */
     public static final String REQUEST_DISTRIBUTION_PROPERTY = "requestdistribution";
@@ -296,6 +307,7 @@ public class CoreWorkload extends Workload {
     private double updateProportion;
     private double scanProportion;
     private double readModifyWriteProportion;
+    private double queryProportion;
 
     public static IntegerGenerator createFieldLengthGenerator(Properties properties) throws WorkloadException {
         IntegerGenerator generator;
@@ -344,6 +356,8 @@ public class CoreWorkload extends Workload {
                 properties.getProperty(SCAN_PROPORTION_PROPERTY), SCAN_PROPORTION_PROPERTY_DEFAULT);
         readModifyWriteProportion = parseDouble(
                 properties.getProperty(READMODIFYWRITE_PROPORTION_PROPERTY), READMODIFYWRITE_PROPORTION_PROPERTY_DEFAULT);
+        queryProportion = parseDouble(
+                properties.getProperty(QUERY_PROPORTION_PROPERTY), QUERY_PROPORTION_PROPERTY_DEFAULT);
 
         table = properties.getProperty(TABLENAME_PROPERTY, TABLENAME_PROPERTY_DEFAULT);
 
@@ -430,6 +444,9 @@ public class CoreWorkload extends Workload {
         if (readModifyWriteProportion > 0) {
             chooser.addValue(readModifyWriteProportion, "READMODIFYWRITE");
         }
+        if (queryProportion > 0) {
+            chooser.addValue(queryProportion, "QUERY");
+        }
         return chooser;
     }
 
@@ -505,6 +522,8 @@ public class CoreWorkload extends Workload {
             doTransactionInsert(db);
         } else if (op.compareTo("SCAN") == 0) {
             doTransactionScan(db);
+        } else if (op.compareTo("QUERY") == 0) {
+            doTransactionQuery(db);
         } else {
             doTransactionReadModifyWrite(db);
         }
@@ -607,6 +626,10 @@ public class CoreWorkload extends Workload {
         if (cleanupInsertedKeys) {
             insertedKeys.add(key);
         }
+    }
+
+    public void doTransactionQuery(DB db) {
+        db.query(table, new Vector<Map<String, ByteIterator>>());
     }
 
     @Override
