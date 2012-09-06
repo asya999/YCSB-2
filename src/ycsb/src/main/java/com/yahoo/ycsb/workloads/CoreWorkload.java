@@ -629,7 +629,11 @@ public class CoreWorkload extends Workload {
     }
 
     public void doTransactionQuery(DB db) {
-        db.query(table, new Vector<Map<String, ByteIterator>>());
+        String key = buildKey(nextTransactionKey());
+        String docName = "";
+        String viewName = "";
+        int limit = 0;
+        db.query(table, key, docName, viewName, limit);
     }
 
     @Override

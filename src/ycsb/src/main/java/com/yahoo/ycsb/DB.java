@@ -135,7 +135,7 @@ public abstract class DB {
      * @param table The name of the table
      * @return Zero on success, a non-zero error code on error.
      */
-    public abstract int query(String table, List<Map<String, ByteIterator>> result);
+    public abstract int query(String table, String key, String docName, String viewName, int limit);
 
     public int deleteAll(String table, Set<String> keys) {
         int code = OK;

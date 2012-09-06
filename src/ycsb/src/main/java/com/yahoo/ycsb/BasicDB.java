@@ -197,7 +197,7 @@ public class BasicDB extends DB {
         return 0;
     }
 
-    public int query(String table, List<Map<String, ByteIterator>> result) {
+    public int query(String table, String key, String docName, String viewName, int limit) {
         delay();
 
         if (verbose) {
