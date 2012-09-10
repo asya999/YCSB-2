@@ -42,6 +42,10 @@ public class CouchbaseConfig extends PropertiesConfig implements MemcachedCompat
 
     public static final FailureMode FAILURE_MODE_PROPERTY_DEFAULT = FailureMode.Redistribute;
 
+    public static final String DDOCS_PROPERTY = "couchbase.ddocs";
+
+    public static final String VIEWS_PROPERTY = "couchbase.views";
+
     public CouchbaseConfig(Properties properties) {
         super(properties);
         declareProperty(HOSTS_PROPERTY, true);
@@ -54,6 +58,8 @@ public class CouchbaseConfig extends PropertiesConfig implements MemcachedCompat
         declareProperty(FAILURE_MODE_PROPERTY, FAILURE_MODE_PROPERTY_DEFAULT);
         declareProperty(SHUTDOWN_TIMEOUT_MILLIS_PROPERTY, DEFAULT_SHUTDOWN_TIMEOUT_MILLIS);
         declareProperty(OBJECT_EXPIRATION_TIME_PROPERTY, DEFAULT_OBJECT_EXPIRATION_TIME);
+        declareProperty(DDOCS_PROPERTY, true);
+        declareProperty(VIEWS_PROPERTY, true);
     }
 
     @Override
@@ -104,5 +110,13 @@ public class CouchbaseConfig extends PropertiesConfig implements MemcachedCompat
     @Override
     public int getObjectExpirationTime() {
         return getInteger(OBJECT_EXPIRATION_TIME_PROPERTY);
+    }
+
+    public String[] getDdocs() {
+        return getString(DDOCS_PROPERTY).split(",");
+    }
+
+    public String[] getViews() {
+        return getString(VIEWS_PROPERTY).split(",");
     }
 }

@@ -25,10 +25,6 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
 
     protected CouchbaseConfig couchbaseConfig;
 
-    private static String DDOC_NAME = "ddoc";
-
-    private static String VIEW_NAME = "view";
-
     private static View view;
 
     private boolean checkOperationStatus;
@@ -36,6 +32,14 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
     private long shutdownTimeoutMillis;
 
     private int objectExpirationTime;
+
+    private Random generator = new Random();
+
+    private Map<String, View> views = new HashMap<String, View>();
+
+    private String[] ddoc_names;
+
+    private String[] view_names;
 
     @Override
     public void init() throws DBException {
@@ -45,6 +49,8 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
             checkOperationStatus = couchbaseConfig.getCheckOperationStatus();
             objectExpirationTime = couchbaseConfig.getObjectExpirationTime();
             shutdownTimeoutMillis = couchbaseConfig.getShutdownTimeoutMillis();
+            ddoc_names = couchbaseConfig.getDdocs();
+            view_names = couchbaseConfig.getViews();
         } catch (Exception e) {
             throw new DBException(e);
         }
@@ -152,9 +158,18 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
     };
 
     private View get_view() {
-        if (view == null) {
-            view = client.getView(DDOC_NAME, VIEW_NAME);
+        int rnd_ddoc = generator.nextInt(ddoc_names.length);
+        int rnd_view = generator.nextInt(view_names.length);
+
+        String ddoc_name = ddoc_names[rnd_ddoc];
+        String view_name = view_names[rnd_view];
+        String id = ddoc_name + view_name;
+
+        if (views.get(id) == null) {
+            view = client.getView(ddoc_name, view_name);
+            views.put(id, view);
         }
+
         return  view;
     }
 
