@@ -155,7 +155,7 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
 
     private Query get_query(String key, int limit) {
         Query query = new Query();
-        //query.setKey(key);
+        query.setStartkeyDocID(key);
         query.setLimit(limit);
         return query;
     }
