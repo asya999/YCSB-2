@@ -161,9 +161,9 @@ public class DBWrapper extends DB {
         return res;
     }
 
-    public int query(String table, String key, String docName, String viewName, int limit) {
+    public int query(String table, String key, int limit) {
         long st = System.nanoTime();
-        int res = db.query(table, key, docName, viewName, limit);
+        int res = db.query(table, key, limit);
         long en = System.nanoTime();
         measurements.measure("QUERY", (int) ((en - st) / 1000));
         measurements.reportReturnCode("QUERY", res);

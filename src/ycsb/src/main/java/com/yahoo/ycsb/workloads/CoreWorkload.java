@@ -630,10 +630,8 @@ public class CoreWorkload extends Workload {
 
     public void doTransactionQuery(DB db) {
         String key = buildKey(nextTransactionKey());
-        String docName = "";
-        String viewName = "";
-        int limit = 0;
-        db.query(table, key, docName, viewName, limit);
+        int limit = 10;
+        db.query(table, key, limit);
     }
 
     @Override

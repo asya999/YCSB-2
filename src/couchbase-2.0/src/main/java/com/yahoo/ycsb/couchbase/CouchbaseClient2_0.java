@@ -22,6 +22,9 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
 
     private CouchbaseConfig couchbaseConfig;
 
+    private static String DDOC_NAME = "ddoc";
+    private static String VIEW_NAME = "view";
+
     @Override
     protected MemcachedCompatibleConfig createMemcachedConfig() {
         return couchbaseConfig = new CouchbaseConfig(getProperties());
@@ -49,14 +52,13 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
     }
 
     @Override
-    public int query(String table, String key, String docName, String viewName, int limit) {
+    public int query(String table, String key, int limit) {
         key = createQualifiedKey(table, key);
 
-        View view = client.getView(docName, viewName);
         Query query = new Query();
         query.setKey(key);
         query.setLimit(limit);
-        ViewResponse response = client.query(view, query);
+        ViewResponse response = client.query(get_view(), query);
 
         Collection errors = response.getErrors();
         if (errors.isEmpty() == true) {
@@ -65,4 +67,9 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
             return 1;
         }
     };
+
+    private View get_view() {
+        View view = client.getView(DDOC_NAME, VIEW_NAME);
+        return  view;
+    }
 }
