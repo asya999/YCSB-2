@@ -442,6 +442,46 @@
 				</plugins>
 			</build>
 		</profile>
+        <profile>
+            <id>couchbase-2.0.0-q.workload</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <systemProperties>
+                                        <systemProperty>
+                                            <key>net.spy.log.LoggerImpl</key>
+                                            <value>net.spy.memcached.compat.log.Log4JLogger</value>
+                                        </systemProperty>
+                                    </systemProperties>
+                                    <mainClass>com.yahoo.ycsb.Client</mainClass>
+                                    <arguments>
+                                        <argument>-P</argument>
+                                        <argument>${basedir}/workloads/q.workload</argument>
+                                        <argument>-t</argument>
+                                        <argument>-target</argument>
+                                                                               
+                                        <argument>${ycsb.target}</argument>
+                                        <argument>-p</argument>
+                                        <argument>operationcount=${ycsb.operationcount}</argument>
+                                        <argument>-s</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 	</profiles>
 	<dependencies>
 		<dependency>
