@@ -58,8 +58,8 @@ public class CouchbaseConfig extends PropertiesConfig implements MemcachedCompat
         declareProperty(FAILURE_MODE_PROPERTY, FAILURE_MODE_PROPERTY_DEFAULT);
         declareProperty(SHUTDOWN_TIMEOUT_MILLIS_PROPERTY, DEFAULT_SHUTDOWN_TIMEOUT_MILLIS);
         declareProperty(OBJECT_EXPIRATION_TIME_PROPERTY, DEFAULT_OBJECT_EXPIRATION_TIME);
-        declareProperty(DDOCS_PROPERTY, true);
-        declareProperty(VIEWS_PROPERTY, true);
+        declareProperty(DDOCS_PROPERTY, false);
+        declareProperty(VIEWS_PROPERTY, false);
     }
 
     @Override
