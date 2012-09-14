@@ -10,21 +10,21 @@ couchbase.ddocs=A,B,C
 couchbase.views=A,B,C
 table=ut
 
-readproportion=0.64
-insertproportion=0.05
-updateproportion=0.06
-deleteproportion=0.05
+readproportion=0.0
+insertproportion=0.0
+updateproportion=0.0
+deleteproportion=0.0
 readmodifywriteproportion=0.0
-queryproportion=0.2
+queryproportion=1.0
 
-fieldcount=15
-fieldlength=100
-threadcount=8
-operationcount=8000000
-recordcount=8000000
+fieldcount=12
+fieldlength=128
+threadcount=16
+operationcount=20000000
+recordcount=20000000
 workload=com.yahoo.ycsb.workloads.SlidingHotspotWorkload
 
 requestdistribution=slidinghotspot
 hotspotslidingspeed=2
 hotspotdatafraction=0.2
-hotspotoperationfraction=0.99
+hotspotoperationfraction=0.95
