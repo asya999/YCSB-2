@@ -501,7 +501,7 @@
                                     <mainClass>com.yahoo.ycsb.Client</mainClass>
                                     <arguments>
                                         <argument>-P</argument>
-                                        <argument>${basedir}/workloads/eperf-access-fbg.workload</argument>
+                                        <argument>${basedir}/workloads/eperf-access-fg.workload</argument>
                                         <argument>-t</argument>
                                         <argument>-target</argument>
                                                                                
