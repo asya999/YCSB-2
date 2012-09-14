@@ -6,6 +6,8 @@ couchbase.password=
 couchbase.timeout=60000
 couchbase.checkOperationStatus=true
 couchbase.readBufferSize=16384
+couchbase.ddocs=
+couchbase.views=
 table=ut
 
 readproportion=0.8

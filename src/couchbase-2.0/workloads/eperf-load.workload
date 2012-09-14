@@ -7,6 +7,8 @@ couchbase.password=
 couchbase.timeout=60000
 couchbase.checkOperationStatus=false
 couchbase.readBufferSize=16384
+couchbase.ddocs=
+couchbase.views=
 table=ut
 
 fieldcount=12
