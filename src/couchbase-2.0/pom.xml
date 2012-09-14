@@ -467,12 +467,7 @@
                                     <arguments>
                                         <argument>-P</argument>
                                         <argument>${basedir}/workloads/eperf-load.workload</argument>
-                                        <argument>-t</argument>
-                                        <argument>-target</argument>
-                                                                               
-                                        <argument>${ycsb.target}</argument>
-                                        <argument>-p</argument>
-                                        <argument>operationcount=${ycsb.operationcount}</argument>
+                                        <argument>-load</argument>
                                         <argument>-s</argument>
                                     </arguments>
                                 </configuration>
