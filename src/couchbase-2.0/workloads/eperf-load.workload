@@ -13,7 +13,7 @@ table=ut
 
 fieldcount=12
 fieldlength=128
-threadcount=16
+threadcount=12
 operationcount=20000000
 recordcount=20000000
 workload=com.yahoo.ycsb.workloads.CoreWorkload
