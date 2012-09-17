@@ -98,8 +98,8 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
             if (WriteConcern.SAFE.equals(writeConcern)) {
                 query.put("$atomic", true);
             }
-            collection.remove(query);
-            return db.getLastError().ok() ? OK : ERROR;
+            WriteResult res = collection.remove(query);
+            return res.getError() == null ? OK : ERROR;
         } catch (Exception e) {
             if (log.isErrorEnabled()) {
                 log.error("Error deleting value", e);
@@ -124,8 +124,8 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
             if (WriteConcern.SAFE.equals(writeConcern)) {
                 query.put("$atomic", true);
             }
-            collection.remove(query);
-            return db.getLastError().ok() ? OK : ERROR;
+            WriteResult res = collection.remove(query);
+            return res.getError() == null ? OK : ERROR;
         } catch (Exception e) {
             if (log.isErrorEnabled()) {
                 log.error("Error deleting value", e);
@@ -158,8 +158,8 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
             for (String k : values.keySet()) {
                 object.put(k, values.get(k).toString());
             }
-            collection.insert(object);
-            return db.getLastError().ok() ? OK : ERROR;
+            WriteResult res = collection.insert(object);
+            return res.getError() == null ? OK : ERROR;
         } catch (Exception e) {
             if (log.isErrorEnabled()) {
                 log.error("Error inserting value", e);
@@ -236,9 +236,8 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
             for (Map.Entry<String, ByteIterator> entry : values.entrySet()) {
                 targetFields.put(entry.getKey(), entry.getValue().toString());
             }
-            collection.setWriteConcern(writeConcern);
-            collection.update(new BasicDBObject("_id", key), new BasicDBObject("$set", targetFields));
-            return db.getLastError().ok() ? OK : ERROR;
+            WriteResult res = collection.update(new BasicDBObject("_id", key), new BasicDBObject("$set", targetFields));
+            return res.getError() == null ? OK : ERROR;
         } catch (Exception e) {
             if (log.isErrorEnabled()) {
                 log.error("Error inserting value", e);
