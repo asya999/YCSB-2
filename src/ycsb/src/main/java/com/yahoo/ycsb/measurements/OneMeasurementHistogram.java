@@ -130,9 +130,14 @@ public class OneMeasurementHistogram extends OneMeasurement {
         exporter.write(getName(), "MaxLatency(us)", max);
 
         int counter = 0;
+        boolean done80th = false;
         boolean done95th = false;
         for (int bucket = 0; bucket < buckets; bucket++) {
             counter += histogram[bucket];
+            if ((!done80th) && (((double) counter) / ((double) operations) >= 0.8)) {
+                exporter.write(getName(), "80thPercentileLatency(us)", latencyPerBucketMap.get(bucket).getAverageLatency());
+                done80th = true;
+            }
             if ((!done95th) && (((double) counter) / ((double) operations) >= 0.95)) {
                 exporter.write(getName(), "95thPercentileLatency(us)", latencyPerBucketMap.get(bucket).getAverageLatency());
                 done95th = true;
