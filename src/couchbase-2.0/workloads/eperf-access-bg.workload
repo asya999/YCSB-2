@@ -17,8 +17,8 @@ deleteproportion=0.08
 readmodifywriteproportion=0.0
 queryproportion=0.0
 
-fieldcount=12
-fieldlength=128
+fieldcount=9
+fieldlength=170
 threadcount=12
 operationcount=15000000
 recordcount=15000000
