@@ -7,18 +7,19 @@ import requests
 def main():
     hostname = sys.argv[-1]
     base_url = "http://{0}:8092/default/_design/".format(hostname)
-    for ddoc_name in ["A", "B", "C"]:
+    for id, ddoc_name in enumerate(("A", "B", "C")):
         url = base_url + ddoc_name
+        print id
         payload = {
             "views": {
                 "A": {
-                    "map": "function (doc, meta) { emit(meta.id, doc); }"
+                    "map": "function (doc, meta) {{ emit(meta.id, doc.field{0}); }}".format(3 * id)
                 },
                 "B": {
-                    "map": "function (doc, meta) { emit(meta.id, doc); }"
+                    "map": "function (doc, meta) {{ emit(meta.id, doc.field{0}); }}".format(1 + 3 * id)
                 },
                 "C": {
-                    "map": "function (doc, meta) { emit(meta.id, doc); }"
+                    "map": "function (doc, meta) {{ emit(meta.id, doc.field{0}); }}".format(2 + 3 * id)
                 }
             }
         }
