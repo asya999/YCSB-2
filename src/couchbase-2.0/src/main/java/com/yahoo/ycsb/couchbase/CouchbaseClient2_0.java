@@ -84,21 +84,17 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
     public int read(String table, String key, Set<String> fields, Map<String, ByteIterator> result) {
         key = createQualifiedKey(table, key);
         try {
-            GetFuture<Object> future =  client.asyncGet(key);
-            return getReturnCode(future);
+            GetFuture<Object> future = client.asyncGet(createQualifiedKey(table, key));
+            Object document = future.get();
+            if (document != null) {
+                fromJson((String) document, fields, result);
+            }
+            return OK;
         } catch (Exception e) {
             if (log.isErrorEnabled()) {
                 log.error("Error encountered", e);
             }
             return ERROR;
-        }
-    }
-
-    protected int getReturnCode(GetFuture<Object> future) {
-        if (checkOperationStatus) {
-            return future.getStatus().isSuccess() ? OK : ERROR;
-        } else {
-            return OK;
         }
     }
 
