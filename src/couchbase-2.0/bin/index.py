@@ -12,13 +12,13 @@ def main():
         payload = {
             "views": {
                 "A": {
-                    "map": "function (doc) { emit(doc.id, null); }"
+                    "map": "function (doc, meta) { emit(meta.id, null); }"
                 },
                 "B": {
-                    "map": "function (doc) { emit(doc.id, null); }"
+                    "map": "function (doc, meta) { emit(meta.id, null); }"
                 },
                 "C": {
-                    "map": "function (doc) { emit(doc.id, null); }"
+                    "map": "function (doc, meta) { emit(meta.id, null); }"
                 }
             }
         }
