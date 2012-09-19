@@ -9,7 +9,6 @@ def main():
     base_url = "http://{0}:8092/default/_design/".format(hostname)
     for id, ddoc_name in enumerate(("A", "B", "C")):
         url = base_url + ddoc_name
-        print id
         payload = {
             "views": {
                 "A": {
