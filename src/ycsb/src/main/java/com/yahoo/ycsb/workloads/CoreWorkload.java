@@ -475,10 +475,16 @@ public class CoreWorkload extends Workload {
         return "user" + key;
     }
 
-    protected Map<String, ByteIterator> buildValues() {
-        Map<String, ByteIterator> values = new HashMap<String, ByteIterator>();
-        for (int i = 0; i < fieldCount; i++) {
+    protected Map<String, ByteIterator> buildValues(String key) {
+        Map<String, String> stringValues = new HashMap<String, String>();
+        for (int i = 0; i < 9; i++) {
             String fieldKey = "field" + i;
+            String data = fieldKey + key.substring(4 + i, 14 + i);
+            stringValues.put(fieldKey, data);
+        }
+        Map<String, ByteIterator> values = StringByteIterator.getByteIteratorMap(stringValues);
+        for (int i = 0; i < fieldCount; i++) {
+            String fieldKey = "field" + (i + 9);
             ByteIterator data = new RandomByteIterator(fieldLengthGenerator.nextInt());
             values.put(fieldKey, data);
         }
@@ -488,7 +494,7 @@ public class CoreWorkload extends Workload {
     protected Map<String, ByteIterator> buildUpdate() {
         //update a random field
         Map<String, ByteIterator> values = new HashMap<String, ByteIterator>();
-        String field = "field" + fieldChooser.nextString();
+        String field = "field" + (fieldChooser.nextString() + 9);
         ByteIterator data = new RandomByteIterator(fieldLengthGenerator.nextInt());
         values.put(field, data);
         return values;
@@ -502,7 +508,7 @@ public class CoreWorkload extends Workload {
      */
     public boolean doInsert(DB db, Object threadState) {
         String key = buildKey(insertKeyGenerator.nextInt());
-        Map<String, ByteIterator> values = buildValues();
+        Map<String, ByteIterator> values = buildValues(key);
         return db.insert(table, key, values) == 0;
     }
 
@@ -575,7 +581,7 @@ public class CoreWorkload extends Workload {
 
         if (writeAllFields) {
             //new data for all the fields
-            values = buildValues();
+            values = buildValues(key);
         } else {
             //update a random field
             values = buildUpdate();
@@ -610,7 +616,7 @@ public class CoreWorkload extends Workload {
         Map<String, ByteIterator> values;
         if (writeAllFields) {
             //new data for all the fields
-            values = buildValues();
+            values = buildValues(key);
         } else {
             //update a random field
             values = buildUpdate();
@@ -621,7 +627,7 @@ public class CoreWorkload extends Workload {
     public void doTransactionInsert(DB db) {
         //choose the next key
         String key = buildKey(transactionInsertKeyGenerator.nextInt());
-        Map<String, ByteIterator> values = buildValues();
+        Map<String, ByteIterator> values = buildValues(key);
         db.insert(table, key, values);
         if (cleanupInsertedKeys) {
             insertedKeys.add(key);
