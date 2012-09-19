@@ -13,13 +13,13 @@ def main():
         payload = {
             "views": {
                 "A": {
-                    "map": "function (doc, meta) {{ emit(meta.id, doc.field{0}); }}".format(3 * id)
+                    "map": "function (doc, meta) {{ emit(doc.field{0}, null); }}".format(3 * id)
                 },
                 "B": {
-                    "map": "function (doc, meta) {{ emit(meta.id, doc.field{0}); }}".format(1 + 3 * id)
+                    "map": "function (doc, meta) {{ emit(doc.field{0}, null); }}".format(1 + 3 * id)
                 },
                 "C": {
-                    "map": "function (doc, meta) {{ emit(meta.id, doc.field{0}); }}".format(2 + 3 * id)
+                    "map": "function (doc, meta) {{ emit(doc.field{0}, null); }}".format(2 + 3 * id)
                 }
             }
         }
