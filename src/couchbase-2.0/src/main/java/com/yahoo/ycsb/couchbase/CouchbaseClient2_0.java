@@ -153,9 +153,9 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
 
         Collection errors = response.getErrors();
         if (errors.isEmpty() == true) {
-            return 0;
+            return OK;
         } else {
-            return 1;
+            return ERROR;
         }
     };
 
