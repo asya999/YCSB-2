@@ -145,7 +145,7 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
         int rnd_ddoc = generator.nextInt(ddoc_names.length);
         int rnd_view = generator.nextInt(view_names.length);
         int startIndex = 3 * rnd_ddoc + rnd_view;
-        key = "field" + startIndex + key.substring(4 + startIndex, 14 + startIndex);
+        key = "field" + startIndex + key.substring(4 + startIndex, 12 + startIndex);
 
         Query query = get_query(key, limit);
         View view = get_view(rnd_ddoc, rnd_view);
