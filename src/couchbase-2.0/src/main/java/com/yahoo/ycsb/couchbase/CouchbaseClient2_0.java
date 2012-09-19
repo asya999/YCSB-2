@@ -142,8 +142,14 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
 
     @Override
     public int query(String table, String key, int limit) {
-        key = createQualifiedKey(table, key);
-        ViewResponse response = client.query(get_view(), get_query(key, limit));
+        int rnd_ddoc = generator.nextInt(ddoc_names.length);
+        int rnd_view = generator.nextInt(view_names.length);
+        int startIndex = 3 * rnd_ddoc + rnd_view;
+        key = "field" + startIndex + key.substring(4 + startIndex, 14 + startIndex);
+
+        Query query = get_query(key, limit);
+        View view = get_view(rnd_ddoc, rnd_view);
+        ViewResponse response = client.query(view, query);
 
         Collection errors = response.getErrors();
         if (errors.isEmpty() == true) {
@@ -153,10 +159,7 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
         }
     };
 
-    private View get_view() {
-        int rnd_ddoc = generator.nextInt(ddoc_names.length);
-        int rnd_view = generator.nextInt(view_names.length);
-
+    private View get_view(int rnd_ddoc, int rnd_view) {
         String ddoc_name = ddoc_names[rnd_ddoc];
         String view_name = view_names[rnd_view];
         String id = ddoc_name + view_name;
@@ -171,7 +174,7 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
 
     private Query get_query(String key, int limit) {
         Query query = new Query();
-        query.setStartkeyDocID(key);
+        query.setRangeStart(key);
         query.setLimit(limit);
         return query;
     }
