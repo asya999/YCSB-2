@@ -161,7 +161,7 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
         } else {
             return ERROR;
         }
-    };
+    }
 
     private View get_view(int rnd_ddoc, int rnd_view) {
         String ddoc_name = ddoc_names[rnd_ddoc];
@@ -173,7 +173,7 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
             views.put(id, view);
         }
 
-        return  view;
+        return view;
     }
 
     private Query get_query(String key, int limit) {
