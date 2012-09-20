@@ -479,7 +479,12 @@ public class CoreWorkload extends Workload {
         Map<String, String> stringValues = new HashMap<String, String>();
         for (int i = 0; i < 9; i++) {
             String fieldKey = "field" + i;
-            String data = fieldKey + key.substring(4 + i, 12 + i);
+            String data;
+            try {
+                data = fieldKey + key.substring(4 + i, 12 + i);
+            } catch (StringIndexOutOfBoundsException e) {
+                data = fieldKey;
+            }
             stringValues.put(fieldKey, data);
         }
         Map<String, ByteIterator> values = StringByteIterator.getByteIteratorMap(stringValues);
