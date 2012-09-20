@@ -1,8 +1,9 @@
+#!/bin/bash
 BASE_DIR=`dirname $0`
 . $BASE_DIR/mongo-env.sh
 
 DEFAULT_PORT=27019
-DEFAULT_ARGUMENTS="--fork --rest --logappend --nojournal --quiet"
+DEFAULT_ARGUMENTS="--fork --rest --logappend --quiet"
 
 port=$DEFAULT_PORT
 arguments="$DEFAULT_ARGUMENTS"
@@ -43,6 +44,9 @@ dbpath="$MONDO_DB_DIR/mongod-configsvr-$port"
 mkdir -p $dbpath
 
 logpath="$MONGO_LOG_DIR/mongod-configsvr-$port.log"
+mkdir -p $MONGO_LOG_DIR
 
 # start mongod config server
 $MONGO_HOME/bin/mongod --configsvr --dbpath $dbpath --logpath $logpath $arguments
+
+tail -n 100 $logpath

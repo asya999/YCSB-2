@@ -1,7 +1,8 @@
+#!/bin/bash
 BASE_DIR=`dirname $0`
 . $BASE_DIR/mongo-env.sh
 
-DEFAULT_PORT=27017
+DEFAULT_PORT=27018
 DEFAULT_ARGUMENTS="--fork --logappend"
 
 function show_usage() {
@@ -40,7 +41,11 @@ then
 fi
 
 logpath="$MONGO_LOG_DIR/mongos-$port.log"
+mkdir -p $MONGO_LOG_DIR
+
 configdb=$MONGO_CONFIGDB
 
 # run mongos router with --configdb parameter indicating the location of the config database(s)
 $MONGO_HOME/bin/mongos --configdb $configdb --logpath $logpath $arguments
+
+tail -n 100 $logpath

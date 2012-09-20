@@ -6,7 +6,7 @@ EXIT_INVALID_OPTION=1
 EXIT_ARGUMENT_REQUIRED=2
 
 DEFAULT_PORT=27017
-DEFAULT_ARGUMENTS="--fork --logappend --rest --nojournal"
+DEFAULT_ARGUMENTS="--fork --logappend --rest"
 
 port=$DEFAULT_PORT
 arguments="$DEFAULT_ARGUMENTS"
@@ -55,5 +55,8 @@ dbpath="$MONDO_DB_DIR/mongod-$port"
 mkdir -p $dbpath
 
 logpath="$MONGO_LOG_DIR/mongod-$port.log"
+mkdir -p $MONGO_LOG_DIR
 
 $MONGO_HOME/bin/mongod --dbpath $dbpath --logpath $logpath $arguments
+
+tail -n 100 $logpath
