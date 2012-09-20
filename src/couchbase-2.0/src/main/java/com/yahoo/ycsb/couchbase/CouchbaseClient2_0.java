@@ -156,7 +156,7 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
         ViewResponse response = client.query(view, query);
 
         Collection errors = response.getErrors();
-        if (errors.isEmpty() == true) {
+        if (errors.isEmpty()) {
             return OK;
         } else {
             return ERROR;
