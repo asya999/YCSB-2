@@ -7,6 +7,6 @@ mv /tmp/mongodb-linux-x86_64-${MONGO_VERSION}/ /usr/lib/mongodb
 rm /tmp/mongodb-linux-x86_64-${MONGO_VERSION}.tgz
 
 killall -9 mongos mongod
-mongo-bin/start-mongod.sh
+mongo-bin/start-mongod.sh -r rs0
 mongo-bin/start-mongod-configsvr.sh
 mongo-bin/start-mongos.sh
