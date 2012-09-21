@@ -1,6 +1,5 @@
 #!/bin/sh
-BASE_DIR=`dirname $0`
-. $BASE_DIR/mongo-env.sh
+MONGO_VERSION=2.2.0
 
 # Clean up
 killall -9 mongos mongod
