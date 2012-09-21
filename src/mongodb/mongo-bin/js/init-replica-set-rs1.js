@@ -1,7 +1,8 @@
 var config = {
     _id : "rs1",
     members : [
-        {_id : "shard1", host : "ycsb-node2:27018"}
+        {_id : 0, host : "ycsb-node1:27017"},
+        {_id : 1, host : "ycsb-node2:27018"}
     ]
 };
 
