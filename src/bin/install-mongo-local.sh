@@ -5,7 +5,7 @@ MONGO_VERSION=2.2.0
 killall -9 mongos mongod
 rm -fr /usr/lib/mongodb
 rm -fr /var/log/mongodb
-rm -fr /data
+rm -fr /data/*
 
 wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-${MONGO_VERSION}.tgz -P /tmp
 tar xzf /tmp/mongodb-linux-x86_64-${MONGO_VERSION}.tgz -C /tmp
