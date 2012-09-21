@@ -21,20 +21,16 @@ case $hostname in
         mongo-bin/start-mongod.sh -r rs2 -p 27018
         mongo-bin/start-mongod-configsvr.sh -p 27019
         mongo-bin/start-mongos.sh -p 27020 ;;
-        $MONGO_HOME/bin/mongo $BASE_DIR/js/init-replica-set-rs1.js ;;
     ycsb-node2 )
         mongo-bin/start-mongod.sh -r rs2 -p 27017
         mongo-bin/start-mongod.sh -r rs1 -p 27018
         mongo-bin/start-mongos.sh -p 27020 ;;
-        $MONGO_HOME/bin/mongo $BASE_DIR/js/init-replica-set-rs2.js ;;
     ycsb-node2 )
         mongo-bin/start-mongod.sh -r rs3 -p 27017
         mongo-bin/start-mongod.sh -r rs4 -p 27018
         mongo-bin/start-mongos.sh -p 27020 ;;
-        $MONGO_HOME/bin/mongo $BASE_DIR/js/init-replica-set-rs3.js ;;
     ycsb-node2 )
         mongo-bin/start-mongod.sh -r rs4 -p 27017
         mongo-bin/start-mongod.sh -r rs3 -p 27018
         mongo-bin/start-mongos.sh -p 27020 ;;
-        $MONGO_HOME/bin/mongo $BASE_DIR/js/init-replica-set-rs4.js ;;
 esac
