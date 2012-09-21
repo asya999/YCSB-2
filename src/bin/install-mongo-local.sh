@@ -24,11 +24,11 @@ case $hostname in
         mongo-bin/start-mongod.sh -r rs2 -p 27017
         mongo-bin/start-mongod.sh -r rs1 -p 27018
         mongo-bin/start-mongos.sh -p 27020 ;;
-    ycsb-node2 )
+    ycsb-node3 )
         mongo-bin/start-mongod.sh -r rs3 -p 27017
         mongo-bin/start-mongod.sh -r rs4 -p 27018
         mongo-bin/start-mongos.sh -p 27020 ;;
-    ycsb-node2 )
+    ycsb-node4 )
         mongo-bin/start-mongod.sh -r rs4 -p 27017
         mongo-bin/start-mongod.sh -r rs3 -p 27018
         mongo-bin/start-mongos.sh -p 27020 ;;
