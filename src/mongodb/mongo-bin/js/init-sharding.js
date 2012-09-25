@@ -11,11 +11,12 @@ for (var i = 0; i < shards.length; i++) {
     });
 }
 
-db.printShardingStatus();
-
 db.runCommand({
     enablesharding : "UserDatabase"
 });
+
 db.runCommand({
     shardcollection : "UserDatabase.UserTable", key : { _id : 1 }
 });
+
+db.printShardingStatus();
