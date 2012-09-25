@@ -371,6 +371,35 @@
 				</plugins>
 			</build>
 		</profile>
+        <profile>
+            <id>mongodb-2.2.0-eperf-load.workload</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <mainClass>com.yahoo.ycsb.Client</mainClass>
+                                    <arguments>
+                                        <argument>-P</argument>
+                                        <argument>${basedir}/workloads/eperf-load.workload</argument>
+                                        <argument>-load</argument>
+                                        <argument>-s</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
     <dependencies>
         <dependency>
