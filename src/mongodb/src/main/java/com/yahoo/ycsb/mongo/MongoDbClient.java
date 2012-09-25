@@ -40,6 +40,7 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
     private String database;
     private ReadPreference readPreference;
     private WriteConcern writeConcern;
+    private Random generator = new Random();
 
     /**
      * Initialize any state for this DB. Called once per DB instance; there is
@@ -291,6 +292,33 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
     }
 
     public int query(String table, String key, int limit) {
-        throw new UnsupportedOperationException("Query not implemented");
-    };
+        int startIndex = generator.nextInt(9);
+        String field = "field" + startIndex;
+
+        try {
+            key = field + key.substring(4 + startIndex, 12 + startIndex);
+        } catch (StringIndexOutOfBoundsException e) {
+            key = field;
+        }
+
+        com.mongodb.DB db = null;
+
+        try {
+            db = mongo.getDB(database);
+            db.requestStart();
+            DBCollection collection = db.getCollection(table);
+            DBObject query = QueryBuilder.start(field).greaterThanEquals(key).get();
+            DBCursor cursor = collection.find(query, null).limit(limit);
+            return cursor != null ? OK : ERROR;
+        } catch (Exception e) {
+            if (log.isErrorEnabled()) {
+                log.error("Error inserting value", e);
+            }
+            return ERROR;
+        } finally {
+            if (db != null) {
+                db.requestDone();
+            }
+        }
+    }
 }
