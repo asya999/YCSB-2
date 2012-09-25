@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 MONGO_VERSION=2.2.0
 
 wget http://downloads.mongodb.org/linux/mongodb-linux-x86_64-${MONGO_VERSION}.tgz -P /tmp
