@@ -9,8 +9,8 @@ case $hostname in
         $MONGO_HOME/bin/mongo --quiet $BASE_DIR/js/init-replica-set-rs1.js ;;
     ycsb-node2 )
         $MONGO_HOME/bin/mongo --quiet $BASE_DIR/js/init-replica-set-rs2.js ;;
-    ycsb-node2 )
+    ycsb-node3 )
         $MONGO_HOME/bin/mongo --quiet $BASE_DIR/js/init-replica-set-rs3.js ;;
-    ycsb-node2 )
+    ycsb-node4 )
         $MONGO_HOME/bin/mongo --quiet $BASE_DIR/js/init-replica-set-rs4.js ;;
 esac
