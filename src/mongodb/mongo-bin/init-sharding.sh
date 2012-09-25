@@ -33,4 +33,4 @@ done
 router=$MONGO_ROUTER
 
 # config shards
-$MONGO_HOME/bin/mongo --quite $router:$port/admin $BASE_DIR/js/init-sharding.js
+$MONGO_HOME/bin/mongo --quiet $router:$port/admin $BASE_DIR/js/init-sharding.js
