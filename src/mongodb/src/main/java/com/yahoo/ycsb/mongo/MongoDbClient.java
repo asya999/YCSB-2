@@ -309,11 +309,17 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
             DBCollection collection = db.getCollection(table);
             DBObject query = QueryBuilder.start(field).greaterThanEquals(key).get();
             DBCursor cursor = collection.find(query, null).limit(limit);
-            return cursor != null ? OK : ERROR;
-        } catch (Exception e) {
-            if (log.isErrorEnabled()) {
-                log.error("Error inserting value", e);
+            try {
+                while(cursor.hasNext()) {
+                    cursor.next();
+                }
+                return OK;
+            } catch (Exception e) {
+                return ERROR;
+            } finally {
+                cursor.close();
             }
+        } catch (Exception e) {
             return ERROR;
         } finally {
             if (db != null) {
