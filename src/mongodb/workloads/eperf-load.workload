@@ -7,7 +7,7 @@ table=UserTable
 
 fieldcount=8
 fieldlength=150
-threadcount=12
+threadcount=20
 operationcount=15000000
 recordcount=15000000
 workload=com.yahoo.ycsb.workloads.CoreWorkload
