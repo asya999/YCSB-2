@@ -291,6 +291,16 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
         }
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    /**
+     * Perform a range scan for a set of records in the database. Each field/value pair from the result will be stored in a HashMap.
+     *
+     * @param table The name of the table
+     * @param key The record key of the first record to read.
+     * @param limit The number of records to read
+     * @return Zero on success, a non-zero error code on error. See this class's description for a discussion of error codes.
+     */
     public int query(String table, String key, int limit) {
         int startIndex = generator.nextInt(9);
         String field = "field" + startIndex;
@@ -302,26 +312,23 @@ public class MongoDbClient extends DB implements MongoDbClientProperties {
         }
 
         com.mongodb.DB db = null;
-
+        DBCursor cursor = null;
         try {
             db = mongo.getDB(database);
             db.requestStart();
             DBCollection collection = db.getCollection(table);
             DBObject query = QueryBuilder.start(field).greaterThanEquals(key).get();
-            DBCursor cursor = collection.find(query, null).limit(limit);
-            try {
-                while(cursor.hasNext()) {
-                    cursor.next();
-                }
-                return OK;
-            } catch (Exception e) {
-                return ERROR;
-            } finally {
-                cursor.close();
+            cursor = collection.find(query, null).limit(limit);
+            while(cursor.hasNext()) {
+                cursor.next().toMap();
             }
+            return OK;
         } catch (Exception e) {
             return ERROR;
         } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
             if (db != null) {
                 db.requestDone();
             }
