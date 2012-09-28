@@ -1,5 +1,3 @@
-use UserDatabase;
-
 db.UserTable.ensureIndex({field0 : 1});
 db.UserTable.ensureIndex({field1 : 1});
 db.UserTable.ensureIndex({field2 : 1});
