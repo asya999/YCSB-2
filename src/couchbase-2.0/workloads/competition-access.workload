@@ -3,6 +3,8 @@ couchbase.hosts=ycsb-node1,ycsb-node2,ycsb-node3,ycsb-node4
 couchbase.bucket=default
 couchbase.user=
 couchbase.password=
+couchbase.ddocs=
+couchbase.views=
 couchbase.timeout=60000
 couchbase.checkOperationStatus=true
 couchbase.readBufferSize=16384
@@ -11,8 +13,8 @@ table=ut
 # Use less mutation ops (reads 0.6 originally) to mitigate growing disk write queue
 readproportion=0.60
 insertproportion=0.05
-updateproportion=0.33
-deleteproportion=0.02
+updateproportion=0.35
+deleteproportion=0.00
 
 fieldcount=15
 fieldlength=100
