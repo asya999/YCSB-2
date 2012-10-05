@@ -82,7 +82,6 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
 
     @Override
     public int read(String table, String key, Set<String> fields, Map<String, ByteIterator> result) {
-        key = createQualifiedKey(table, key);
         try {
             GetFuture<Object> future = client.asyncGet(createQualifiedKey(table, key));
             Object document = future.get();
