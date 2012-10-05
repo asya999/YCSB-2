@@ -182,4 +182,12 @@ public class CouchbaseClient2_0 extends MemcachedCompatibleClient {
         query.setLimit(limit);
         return query;
     }
+
+    protected int getReturnCode(OperationFuture<Boolean> future) {
+        if (checkOperationStatus) {
+            return future.getStatus().isSuccess() ? OK : ERROR;
+        } else {
+            return OK;
+        }
+    }
 }
