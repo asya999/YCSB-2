@@ -372,7 +372,7 @@
 			</build>
 		</profile>
         <profile>
-            <id>mongodb-2.2.0-eperf-access-bg.workload</id>
+            <id>mongodb-eperf-access-bg.workload</id>
             <build>
                 <plugins>
                     <plugin>
@@ -391,11 +391,6 @@
                                         <argument>-P</argument>
                                         <argument>${basedir}/workloads/eperf-access-bg.workload</argument>
                                         <argument>-t</argument>
-                                        <argument>-target</argument>   
-                                        <argument>${ycsb.target}</argument>
-                                        <argument>-p</argument>
-                                        <argument>operationcount=${ycsb.operationcount}</argument>
-                                        <argument>-s</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -405,7 +400,7 @@
             </build>
         </profile>
         <profile>
-            <id>mongodb-2.2.0-eperf-access-fg.workload</id>
+            <id>mongodb-eperf-access-fg.workload</id>
             <build>
                 <plugins>
                     <plugin>
@@ -424,11 +419,6 @@
                                         <argument>-P</argument>
                                         <argument>${basedir}/workloads/eperf-access-fg.workload</argument>
                                         <argument>-t</argument>
-                                        <argument>-target</argument>   
-                                        <argument>${ycsb.target}</argument>
-                                        <argument>-p</argument>
-                                        <argument>operationcount=${ycsb.operationcount}</argument>
-                                        <argument>-s</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -438,7 +428,7 @@
             </build>
         </profile>
         <profile>
-            <id>mongodb-2.2.0-eperf-load.workload</id>
+            <id>mongodb-eperf-load.workload</id>
             <build>
                 <plugins>
                     <plugin>

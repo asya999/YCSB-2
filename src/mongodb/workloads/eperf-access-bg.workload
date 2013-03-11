@@ -16,7 +16,7 @@ queryproportion=0.0
 fieldcount=8
 fieldlength=150
 threadcount=12
-operationcount=15000000
+operationcount=8000000
 recordcount=15000000
 workload=com.yahoo.ycsb.workloads.SlidingHotspotWorkload
 
