@@ -1,6 +1,6 @@
 # 20M x 1.5K items
 db=com.yahoo.ycsb.couchbase.CouchbaseClient2_0
-couchbase.hosts=10.2.1.65,10.2.1.66,10.2.1.67,10.2.1.68
+couchbase.hosts=ycsb-node1,ycsb-node2,ycsb-node3,ycsb-node4
 couchbase.bucket=default
 couchbase.user=
 couchbase.password=
