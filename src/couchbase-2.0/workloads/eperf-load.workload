@@ -13,9 +13,9 @@ table=ut
 
 fieldcount=8
 fieldlength=150
-threadcount=12
-operationcount=100000000
-recordcount=100000000
+threadcount=20
+operationcount=15000000
+recordcount=15000000
 workload=com.yahoo.ycsb.workloads.CoreWorkload
 
 requestdistribution=zipfian
