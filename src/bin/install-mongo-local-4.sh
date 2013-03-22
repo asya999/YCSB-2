@@ -13,19 +13,15 @@ case $hostname in
         mongo-bin/start-mongod.sh -r rs1 -p 27018 -d /data
         mongo-bin/start-mongod.sh -r rs4 -p 27019 -d /data1
         mongo-bin/start-mongod-configsvr.sh -p 27017
-        mongo-bin/start-mongos.sh -c ycsb-node1:27017,ycsb-node2:27017,ycsb-node3:27017 -p 27020;;
     ycsb-node2 )
         mongo-bin/start-mongod.sh -r rs2 -p 27018 -d /data
         mongo-bin/start-mongod.sh -r rs1 -p 27019 -d /data1
         mongo-bin/start-mongod-configsvr.sh -p 27017
-        mongo-bin/start-mongos.sh -c ycsb-node1:27017,ycsb-node2:27017,ycsb-node3:27017 -p 27020;;
     ycsb-node3 )
         mongo-bin/start-mongod.sh -r rs3 -p 27018 -d /data
         mongo-bin/start-mongod.sh -r rs2 -p 27019 -d /data1
         mongo-bin/start-mongod-configsvr.sh -p 27017
-        mongo-bin/start-mongos.sh -c ycsb-node1:27017,ycsb-node2:27017,ycsb-node3:27017 -p 27020;;
     ycsb-node4 )
         mongo-bin/start-mongod.sh -r rs4 -p 27018 -d /data
-        mongo-bin/start-mongod-configsvr.sh -p 27017
-        mongo-bin/start-mongos.sh -c ycsb-node1:27017,ycsb-node2:27017,ycsb-node3:27017 -p 27020;;
+        mongo-bin/start-mongod.sh -r rs3 -p 27019 -d /data1
 esac
