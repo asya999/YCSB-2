@@ -16,7 +16,7 @@ function show_usage() {
 port=$DEFAULT_PORT
 arguments=$DEFAULT_ARGUMENTS
 
-while getopts ":p:a:" opt; do
+while getopts ":p:c:a:" opt; do
   case $opt in
     p)
         port=$OPTARG
