@@ -19,7 +19,7 @@ function show_usage() {
     echo -e "usage: $(basename $0) [-r replica set name] [-p port] [-d data path] [-a arguments]"
 }
 
-while getopts ":r:p:a:" opt; do
+while getopts ":r:p:d:a:" opt; do
   case $opt in
     r)
         replica_set=$OPTARG
@@ -50,6 +50,7 @@ then
 fi
 
 if [ -z "$dbpath" ]
+then
   dbpath="$MONDO_DB_DIR/mongod-$port"
   mkdir -p $dbpath
 fi
