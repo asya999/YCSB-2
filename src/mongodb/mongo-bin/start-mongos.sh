@@ -21,6 +21,9 @@ while getopts ":p:a:" opt; do
     p)
         port=$OPTARG
     ;;
+    c)
+        configdb=$OPTARG
+    ;;
     a)
         arguments=$OPTARG
     ;;
@@ -40,10 +43,13 @@ then
   arguments="--port $port $arguments"
 fi
 
+if [ -z "$configdb" ]
+then
+  configdb=$MONGO_CONFIGDB
+fi
+
 logpath="$MONGO_LOG_DIR/mongos-$port.log"
 mkdir -p $MONGO_LOG_DIR
-
-configdb=$MONGO_CONFIGDB
 
 # run mongos router with --configdb parameter indicating the location of the config database(s)
 $MONGO_HOME/bin/mongos --configdb $configdb --logpath $logpath $arguments

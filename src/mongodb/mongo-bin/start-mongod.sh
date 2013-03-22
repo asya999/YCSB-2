@@ -16,7 +16,7 @@ function show_usage() {
     then
         echo "$(basename $0): $1"
     fi
-    echo -e "usage: $(basename $0) [-r replica set name] [-p port] [-a arguments]"
+    echo -e "usage: $(basename $0) [-r replica set name] [-p port] [-d data path] [-a arguments]"
 }
 
 while getopts ":r:p:a:" opt; do
@@ -26,6 +26,9 @@ while getopts ":r:p:a:" opt; do
     ;;
     p)
         port=$OPTARG
+    ;;
+    d)
+        dbpath=$OPTARG
     ;;
     a)
         arguments=$OPTARG
@@ -46,13 +49,15 @@ then
   arguments="--replSet $replica_set $arguments"
 fi
 
+if [ -z "$dbpath" ]
+  dbpath="$MONDO_DB_DIR/mongod-$port"
+  mkdir -p $dbpath
+fi
+
 if [ ! -z "$port" ]
 then
   arguments="--port $port $arguments"
 fi
-
-dbpath="$MONDO_DB_DIR/mongod-$port"
-mkdir -p $dbpath
 
 logpath="$MONGO_LOG_DIR/mongod-$port.log"
 mkdir -p $MONGO_LOG_DIR
