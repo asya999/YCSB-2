@@ -478,6 +478,41 @@
             </build>
         </profile>
         <profile>
+            <id>couchbase-2.0.0-eperf-reload.workload</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.1.1</version>
+                        <executions>
+                            <execution>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <systemProperties>
+                                        <systemProperty>
+                                            <key>net.spy.log.LoggerImpl</key>
+                                            <value>net.spy.memcached.compat.log.Log4JLogger</value>
+                                        </systemProperty>
+                                    </systemProperties>
+                                    <mainClass>com.yahoo.ycsb.Client</mainClass>
+                                    <arguments>
+                                        <argument>-P</argument>
+                                        <argument>${basedir}/workloads/eperf-reload.workload</argument>
+                                        <argument>-load</argument>
+                                        <argument>-s</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>couchbase-2.0.0-eperf-access-fg.workload</id>
             <build>
                 <plugins>
